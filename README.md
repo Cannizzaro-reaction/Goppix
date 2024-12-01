@@ -2,21 +2,23 @@
 
 写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出啊啊啊啊啊啊啊啊
 
-## Introduction
+
+
+## :microscope: ​Introduction
 
 pass
 
 
 
-## Installation
+## :wrench: Installation
 
 pass
 
 
 
-## Back-end
+## :computer: ​Back-end
 
-### :card_file_box: Database Design
+### Database Design :card_file_box: 
 
 * `species_protein` table
 
@@ -84,7 +86,7 @@ pass
 
 
 
-### :mag_right: API Design
+### API Design​ :mag_right:
 
 #### Retrieve GO term description and GO interaction
 
@@ -141,5 +143,5 @@ This API allows users to query interactions for a given protein in a specific sp
 
   * Interaction Graph: The `graph_svg` field contains an SVG string representing the interaction network. The graph includes proteins that interact with the query protein, as well as interactions between these proteins. The thickness of the edges represents the interaction score, with thicker edges indicating higher scores. An example is given below:
 
-    <img src="C:/Users/tracy/AppData/Roaming/Typora/typora-user-images/image-20241201205957725.png" alt="image-20241201205957725" style="zoom:50%;" />
+    <img src="accessory/ppi_net_example.png" alt="image-20241201205957725" style="zoom:50%;" />
 

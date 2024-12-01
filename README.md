@@ -143,5 +143,7 @@ This API allows users to query interactions for a given protein in a specific sp
 
   * Interaction Graph: The `graph_svg` field contains an SVG string representing the interaction network. The graph includes proteins that interact with the query protein, as well as interactions between these proteins. The thickness of the edges represents the interaction score, with thicker edges indicating higher scores. An example is given below:
 
-    <img src="accessory/ppi_net_example.png" alt="image-20241201205957725" style="zoom:50%;" />
+     <img src="./accessory/ppi_net_example.png" alt="ppi_graph_example" width="50%"> ​
+
+    
 

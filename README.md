@@ -84,12 +84,60 @@ pass
 
 ### API Design
 
-* Retrieve GO term description and GO interaction
+#### Retrieve GO term description and GO interaction
 
-  pass
+pass
 
-  
 
-* Retrieve protein interaction information and visualization
 
-  pass
+#### Retrieve protein interaction information and visualization
+
+This API allows users to query interactions for a given protein in a specific species, returning interaction details and an interaction network visualization graph. The interaction details include two interacting proteins, their interaction score, the publications reporting the interaction, and the experimental methods used to discover the interaction.
+
+* Endpoint: `GET /interaction-search`
+
+* Request Parameters:
+
+  | Parameter   | Data Type | Required | Description                                                  |
+  | ----------- | --------- | -------- | ------------------------------------------------------------ |
+  | `protein`   | `string`  | Yes      | The ID of the protein to query                               |
+  | `species`   | `string`  | Yes      | The species name of the queried protein (`E.coli` and `S.cerevisiae` supported) |
+  | `min_score` | `float`   | No       | The minimum interaction score threshold (default: `0`)       |
+
+* Example Request URL:
+
+  ```
+  http://127.0.0.1:5000/interaction-search?protein=B3317&species=E.coli&min_score=800
+  ```
+
+* Response Structure:
+
+  | Field                         | Type     | Description                                                  |
+  | ----------------------------- | -------- | ------------------------------------------------------------ |
+  | `protein`                     | `string` | The queried protein ID                                       |
+  | `species`                     | `string` | The species name of the queried protein                      |
+  | `interactions`                | `array`  | List of interaction details                                  |
+  | \|-- `protein_a`              | `string` | Protein_a in the interaction found                           |
+  | \|-- `protein_b`              | `string` | Protein_b in the interaction found                           |
+  | \|-- `interaction_score`      | `float`  | The score of this interaction. The higher, the more reliable |
+  | \|-- `validations`            | `array`  | The experimental validations for this interaction            |
+  | \| \|-- `experiment_approach` | `string` | The experimental method used for validation                  |
+  | \| \|-- `pubmed_id`           | `string` | The PubMed ID of the paper validated this interaction        |
+  | `graph_svg`                   | `string` | The interaction network graph in SVG format                  |
+
+* Error Codes
+
+  | HTTP Status Code | Description                                           |
+  | ---------------- | ----------------------------------------------------- |
+  | `400`            | Invalid species name                                  |
+  | `404`            | Invalid protein name or protein not found in database |
+  | `500`            | Unexpected error                                      |
+
+* Notes:
+
+  * Case Insensitivity: The letters in protein IDs of E.coli will be automatically normalized to lowercase, while the letters in protein IDs of S.cerevisiae will be automatically normalized to uppercase.
+
+  * Interaction Graph: The `graph_svg` field contains an SVG string representing the interaction network. The graph includes proteins that interact with the query protein, as well as interactions between these proteins. The thickness of the edges represents the interaction score, with thicker edges indicating higher scores. An example is given below:
+
+    <img src="C:/Users/tracy/AppData/Roaming/Typora/typora-user-images/image-20241201205957725.png" alt="image-20241201205957725" style="zoom:50%;" />
+

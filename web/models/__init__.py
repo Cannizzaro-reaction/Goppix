@@ -2,8 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # import models
-from .go_info_model import GoInfo
-from .go_interaction_model import GoInteraction
+from .go_model import GoInteraction, GoInfo, EcoliProtGO, ScerProtGO
 from .Ecoli_interaction_score_model import EcoliInteractionScore
 from .Scer_interaction_score_model import ScerInteractionScore
 from .Ecoli_validation_model import EcoliValidation

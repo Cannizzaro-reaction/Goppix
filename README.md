@@ -16,7 +16,7 @@ pass
 
 ## Back-end
 
-### Database Design
+### :card_file_box: Database Design
 
 * `species_protein` table
 
@@ -84,7 +84,7 @@ pass
 
 
 
-### API Design
+### :mag_right: API Design
 
 #### Retrieve GO term description and GO interaction
 

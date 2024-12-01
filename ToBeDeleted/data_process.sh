@@ -82,3 +82,118 @@ awk -F, '{
     }
     printf "\n"
 }' SC_interaction_intersect.csv > SC_interaction_clear.csv
+
+
+# look for replication in interaction data
+awk -F',' 'NR==1 {next} {pair=$1","$2; count[pair]++; records[pair]=records[pair] $0 "\n"} END {for (p in count) if (count[p] > 1) printf "%s", records[p]}' Ecoli_prot_interaction.csv
+awk -F',' 'NR==1 {next} {pair=$1","$2; count[pair]++; records[pair]=records[pair] $0 "\n"} END {for (p in count) if (count[p] > 1) printf "%s", records[p]}' Scer_prot_interaction.csv
+
+# split interaction table
+# table1: protein_a, protein_b, score
+# table2: protein_a, protein_b, pubmed_id, experiment_approach
+awk -F',' '!seen[$1,$2,$5]++ {print $1 "," $2 "," $5}' Ecoli_prot_interaction.csv > Ecoli_interaction_score.csv
+awk -F',' '!seen[$1,$2,$5]++ {print $1 "," $2 "," $5}' Scer_prot_interaction.csv > Scer_interaction_score.csv
+
+awk -F',' '!seen[$1,$2,$3,$4]++ {print $1 "," $2 "," $3 "," $4}' Ecoli_prot_interaction.csv > Ecoli_validation.csv
+awk -F',' '!seen[$1,$2,$3,$4]++ {print $1 "," $2 "," $3 "," $4}' Scer_prot_interaction.csv > Scer_validation.csv
+
+# check replication
+awk -F',' '{key=$1","$2; count[key]++} END {for (k in count) if (count[k]>1) print k, count[k]}' Scer_interaction_score.csv
+awk -F',' '{key=$1","$2; count[key]++} END {for (k in count) if (count[k]>1) print k, count[k]}' Ecoli_interaction_score.csv
+awk -F',' '{key=$1","$2","$3","$4; count[key]++} END {for (k in count) if (count[k]>1) print k, count[k]}' Scer_validation.csv
+awk -F',' '{key=$1","$2","$3","$4; count[key]++} END {for (k in count) if (count[k]>1) print k, count[k]}' Ecoli_validation.csv
+
+awk -F',' '{key=$1","$2","$3","$4; count[key]++} END {for (k in count) if (count[k]>1) print k, count[k]}' Scer_prot_interaction.csv
+# 有4组数据重复，得分没影响
+
+
+# get rid of replication like: prot_a, prot_b VS prot_b, prot_a
+awk -F',' 'NR==1 {print; next} {key=($1<$2 ? $1","$2 : $2","$1)","$3","$4; if (!seen[key]++) print $0}' Scer_validation.csv > Scer_validation_deduplicated.csv
+awk -F',' 'NR>1 {key=($1<$2 ? $1","$2 : $2","$1)","$3","$4; count[key]++} END {for (k in count) if (count[k]>1) print k, count[k]}' Scer_validation_no_rep.csv
+
+awk -F',' 'NR==1 {print; next} {key=($1<$2 ? $1","$2 : $2","$1); if (!seen[key]++) print $0}' Ecoli_interaction_score.csv > Ecoli_score_deduplicated.csv
+awk -F',' 'NR==1 {next} {key=($1<$2 ? $1","$2 : $2","$1); if (seen[key]++) print $0}' Ecoli_score_deduplicated.csv
+
+awk -F',' 'NR==1 {print; next} {key=($1<$2 ? $1","$2 : $2","$1); if (!seen[key]++) print $0}' Scer_interaction_score.csv > Scer_score_deduplicated.csv
+awk -F',' 'NR==1 {next} {key=($1<$2 ? $1","$2 : $2","$1); if (seen[key]++) print $0}' Scer_score_deduplicated.csv
+
+
+# merge protein information table
+awk -F, 'FNR==NR {data1[$1] = $2 "," $3; next} 
+         {
+            if ($1 in data1) {
+                print $1 "," $2 "," data1[$1]
+            } else {
+                print $1 "," $2 ",NA,NA"
+            }
+         }' K12_PdbSeq_SecondaryStructure.csv K12_pro_seq_url.csv > K12_prot_info1.csv
+
+# add sequence to the remaining protein
+awk -F, 'BEGIN {OFS = ","}
+         FNR==NR {data[$1] = $2; next}
+         {
+            if ($2 == "NA" && $1 in data) {
+                $2 = data[$1]
+            }
+            print $0
+         }' K12_pro_seq.csv K12_gene_sequence_structure1.csv > K12_gene_sequence_structure.csv
+
+# split protein information data to satisfy 3NF
+awk -F, 'NR==1 {print $1","$2","$3 > "Ecoli_seq_pdb.csv"}
+         NR>1 {print $1","$2","$3 >> "Ecoli_seq_pdb.csv"}' K12_prot_info.csv
+
+awk -F, 'NR==1 {print $1","$4 > "Ecoli_ss.csv"}
+         NR>1 {print $1","$4 >> "Ecoli_ss.csv"}' K12_prot_info.csv
+
+# count length in each column
+# url for pdb file
+awk -F',' '{if(NR>1) max=(length($2)>max)?length($2):max} END {print max}' Scer_seq_pdb.csv # 69
+awk -F',' '{if(NR>1) max=(length($2)>max)?length($2):max} END {print max}' Ecoli_seq_pdb.csv # 59
+
+# protein sequence
+awk -F',' '{if(NR>1) max=(length($3)>max)?length($3):max} END {print max}' Scer_seq_pdb.csv # 20300
+awk -F',' '{if(NR>1) max=(length($3)>max)?length($3):max} END {print max}' Ecoli_seq_pdb.csv # 26368
+
+# secondary structure
+awk -F',' '{if(NR>1) max=(length($2)>max)?length($2):max} END {print max}' Scer_ss.csv # 20300
+awk -F',' '{if(NR>1) max=(length($2)>max)?length($2):max} END {print max}' Ecoli_ss.csv # 26368
+
+# split protein information(12.1)
+awk -F, '{print $1 "," $2 > "Scer_ps.csv"; print $1 "," $3 > "Scer_ss.csv"}' gene_sequence_structure.csv
+
+awk -F, '{
+    if (NR > 1) {
+        len = length($2)
+        if (len > max) max = len
+    }
+}
+END {
+    print "最大长度:", max
+}' Scer_ts.csv
+# 2358, 2358, 59
+# 4910, 2620, 69
+
+## pro_ver of checking
+awk -F, '{
+    if (NR > 1) {
+        len = length($2)
+        if (len > max) {
+            max = len
+            max_line = $0
+            max_line_num = NR
+        }
+    }
+}
+END {
+    print "最大长度:", max
+    print "对应行:", max_line
+    print "行号:", max_line_num
+}' Scer_ps.csv
+
+# check if the length of primary structure and secondary structure are the same
+awk -F, 'length($3) != length($2) {count++} END {print count}' gene_sequence_structure.csv
+
+# get rid of duplicated rows in go information
+awk -F, 'NR == 1 || !seen[$1","$2]++' K12_gene_go.csv > Ecoli_protein_go.csv
+awk -F, '!seen[$1]++ { count++ } END { print "Unique values in the first column:", count }' Ecoli_protein_go.csv
+# Scer: 5802, Ecoli: 3725

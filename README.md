@@ -20,81 +20,167 @@ pass
 
 ### Database Design :card_file_box: 
 
-* `species_protein` table
+:pushpin: ​`species_protein` table
 
-  This table records the name of protein and the corresponding species, including *E. coli* and *S. cerevisiae*.
+This table records the name of protein and the corresponding species, including *E. coli* and *S. cerevisiae*.
 
-  | Column Name | Data Type  | Constraints | Description                                                |
-  | ----------- | ---------- | ----------- | ---------------------------------------------------------- |
-  | protein_id  | String(10) | Primary Key | The name (ID) of the protein                               |
-  | species     | String(20) | NOT NULL    | The name of the species from which this protein originates |
-  
-  
-
-* `go_info` table
-
-  This table records the basic information of each GO term, including its name, category and description in details.
-
-  | Column Name | Data Type   | Constraints           | Description                                                  |
-  | ----------- | ----------- | --------------------- | ------------------------------------------------------------ |
-  | id          | String(15)  | Primary Key, NOT NULL | The ID of each GO term, serving as a unique identifier.      |
-  | name        | String(200) | NOT NULL              | The name of the GO term                                      |
-  | category    | String(20)  | NOT NULL              | The category of the GO term, including biological process, molecular function and cellular component |
-  | description | Text        | NOT NULL              | A detailed description of the GO term                        |
-
-  
-
-* `go_interaction` table
-
-  This table records a directed relationship between two GO terms in each row. One GO term may have different relationships with different other terms.
-
-  | Column Name  | Data Type  | Constraints                          | Description                                                  |
-  | ------------ | ---------- | ------------------------------------ | ------------------------------------------------------------ |
-  | index        | Integer    | Primary Key, NOT NULL                | A unique identifier for each record in the table             |
-  | go_id        | String(15) | Foreign Key (`go_info.id`), NOT NULL | The source GO term in this relationship, which is a foreign key from the `id` field in `go_info` |
-  | relationship | String(50) | NOT NULL                             | The type of relationship between the two GO terms, including `is_a`, `part_of`, `positively_regulates`, `negatively_regulates` and `regulates` |
-  | target_go_id | String(15) | Foreign Key (`go_info.id`), NOT NULL | The target GO term in this relationship, which is a foreign key from the `id` field in `go_info` |
-
-  
-  
-* `Ecoli_interaction_score` table & `Scer_interaction_score` table
-
-  These two tables document key protein-protein interactions in *E. coli* and *S. cerevisiae*. The first two columns represent the two proteins involved in the interaction, while the third column provides the interaction score. This score is calculated by integrating probabilities from various evidence channels and adjusting for the likelihood of randomly observing an interaction.
-
-  | Column Name       | Data Type  | Constraints                                                  | Description                                                  |
-  | ----------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | protein_a         | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
-  | protein_b         | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
-  | interaction_score | Integer    | NOT NULL                                                     | The interaction score given by combining the probabilities from the different evidence channels |
+| Column Name | Data Type  | Constraints | Description                                                |
+| ----------- | ---------- | ----------- | ---------------------------------------------------------- |
+| protein_id  | String(10) | Primary Key | The name (ID) of the protein                               |
+| species     | String(20) | NOT NULL    | The name of the species from which this protein originates |
 
 
 
-* `Ecoli_validation` table & `Scer_validation` table
+:pushpin: `go_basic` table
 
-  These two tables record the experimental validation information of protein-protein interactions in *E. coli* and *S. cerevisiae*. The validation information includes the type of experiment and the PubMed ID of the paper that reports the interaction. An interaction may have been validated by more than one type of experiment or reported in more than one paper.
+This table records the basic information of each GO term, including its name and category.
 
-  | Column Name         | Data Type  | Constraints                                                  | Description                                                  |
-  | ------------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | protein_a           | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
-  | protein_b           | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
-  | experiment_approach | String(30) | Primary Key, NOT NULL                                        | The type of experiment that has validated this interaction   |
-  | pubmed_id           | String(20) | Primary Key, NOT NULL                                        | The paper that reports this interaction                      |
-
+| Column Name | Data Type   | Constraints           | Description                                                  |
+| ----------- | ----------- | --------------------- | ------------------------------------------------------------ |
+| id          | String(15)  | Primary Key, NOT NULL | The ID of each GO term, serving as a unique identifier       |
+| name        | String(200) | NOT NULL              | The name of the GO term                                      |
+| category    | String(20)  | NOT NULL              | The category of the GO term, including biological process, molecular function and cellular component |
 
 
-* TBC...
+
+:pushpin: `go_detail` table
+
+This table provides detailed information about each GO term.
+
+| Column Name | Data Type  | Constraints           | Description                                            |
+| ----------- | ---------- | --------------------- | ------------------------------------------------------ |
+| id          | String(15) | Primary Key, NOT NULL | The ID of each GO term, serving as a unique identifier |
+| description | Text       | NOT NULL              | A detailed description of the GO term                  |
+
+
+
+:pushpin: `go_interaction` table
+
+This table records a directed relationship between two GO terms in each row. One GO term may have different relationships with different other terms.
+
+| Column Name  | Data Type  | Constraints                           | Description                                                  |
+| ------------ | ---------- | ------------------------------------- | ------------------------------------------------------------ |
+| index        | Integer    | Primary Key, NOT NULL                 | A unique identifier for each record in the table             |
+| go_id        | String(15) | Foreign Key (`go_basic.id`), NOT NULL | The source GO term in this relationship, which is a foreign key from the `id` field in `go_basic` |
+| relationship | String(50) | NOT NULL                              | The type of relationship between the two GO terms, including `is_a`, `part_of`, `positively_regulates`, `negatively_regulates` and `regulates` |
+| target_go_id | String(15) | Foreign Key (`go_basic.id`), NOT NULL | The target GO term in this relationship, which is a foreign key from the `id` field in `go_basic` |
+
+
+
+:pushpin: `Ecoli_interaction_score` table & `Scer_interaction_score` table
+
+These two tables document key protein-protein interactions in *E. coli* and *S. cerevisiae*. The first two columns represent the two proteins involved in the interaction, while the third column provides the interaction score. This score is calculated by integrating probabilities from various evidence channels and adjusting for the likelihood of randomly observing an interaction.
+
+| Column Name       | Data Type  | Constraints                                                  | Description                                                  |
+| ----------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| protein_a         | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
+| protein_b         | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
+| interaction_score | Integer    | NOT NULL                                                     | The interaction score given by combining the probabilities from the different evidence channels |
+
+
+
+:pushpin: `Ecoli_validation` table & `Scer_validation` table
+
+These two tables record the experimental validation information of protein-protein interactions in *E. coli* and *S. cerevisiae*. The validation information includes the type of experiment and the PubMed ID of the paper that reports the interaction. An interaction may have been validated by more than one type of experiment or reported in more than one paper.
+
+| Column Name         | Data Type  | Constraints                                                  | Description                                                  |
+| ------------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| protein_a           | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
+| protein_b           | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | One of the protein in the interaction, which is a foreign key from the `protein_id` field in `species_protein` |
+| experiment_approach | String(30) | Primary Key, NOT NULL                                        | The type of experiment that has validated this interaction   |
+| pubmed_id           | String(20) | Primary Key, NOT NULL                                        | The paper that reports this interaction                      |
+
+
+
+:pushpin: `Ecoli_protein_go` & `Scer_protein_go` table
+
+These two tables provide information about the functional annotation (which is GO term in our database) of each protein in *E. coli* and *S. cerevisiae*. One `protein_id` may have more than one record if it has several GO terms.
+
+| Column Name | Data Type  | Constraints                                                  | Description                                         |
+| ----------- | ---------- | ------------------------------------------------------------ | --------------------------------------------------- |
+| protein_id  | String(10) | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | ID of the protein (FK)                              |
+| go          | String(15) | Primary Key, Foreign Key (`go_basic.id`), NOT NULL           | The functional annotation (GO term) of this protein |
+
+
+
+:pushpin: `Ecoli_primary_structure` & `Scer_primary_structure` table
+
+These two tables provide primary structure (sequence) for each corresponding protein. The sequence is obtained from the Alpha Fold database to ensure alignment with the secondary structure. The missing information is supplemented using sequences from the STRING database.
+
+| Column Name | Data Type                                 | Constraints                                                  | Description             |
+| ----------- | ----------------------------------------- | ------------------------------------------------------------ | ----------------------- |
+| protein_id  | String(10)                                | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | ID of the protein (FK)  |
+| seq         | Ecoli: String(2400) \| Scer: String(5000) | /                                                            | Sequence of the protein |
+
+
+
+:pushpin: `Ecoli_secondary_structure` & `Scer_secondary_structure` table
+
+These two tables provide secondary structure for each corresponding protein. The secondary structure is given in string format and presented as "C", "H", T", or "B", in which "H" represents helix, "T" represents turn, "B" represents bend, and "C" represents the other remaining secondary structure, which mainly contains beta sheet.
+
+The secondary structure sequence corresponds one-to-one with the primary structure sequence. The information is taken from the predicted tertiary structure files in `.cif` format by a package developed by ourselves. The tertiary structures are got from Alpha Fold database. There are some missing values, which we can't get tertiary structure files or extract secondary structure successfully.
+
+| Column Name | Data Type                                 | Constraints                                                  | Description                        |
+| ----------- | ----------------------------------------- | ------------------------------------------------------------ | ---------------------------------- |
+| protein_id  | String(10)                                | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | ID of the protein (FK)             |
+| ss          | Ecoli: String(2400) \| Scer: String(2700) | /                                                            | Secondary structure of the protein |
+
+
+
+:pushpin: `Ecoli_tertiary_structure` & `Scer_tertiary_structure` table
+
+These two tables provide download URL for tertiary structure of each corresponding protein. Proteins are first searched in the PDB database for tertiary structures. If no structure is found, the predicted structure is retrieved from the Alpha Fold database. The remaining proteins are supplemented using the SWISS-MODEL database. There are some missing values, which tertiary structure can't be obtained from the three databases above.
+
+| Column Name | Data Type                             | Constraints                                                  | Description                       |
+| ----------- | ------------------------------------- | ------------------------------------------------------------ | --------------------------------- |
+| protein_id  | String(10)                            | Primary Key, Foreign Key (`species_protein.protein_id`), NOT NULL | ID of the protein (FK)            |
+| ts          | Ecoli: String(65) \| Scer: String(75) | /                                                            | Tertiary Structure of the protein |
 
 
 
 ### API Design​ :mag_right:
 
-#### Retrieve GO term description and GO interaction
+#### :old_key: Retrieve GO term description and GO interaction
 
-pass
+This API allows users to query specific GO terms and returns information including detailed GO term data and interaction data. In the detailed information section, users can obtain the name, category, and a detailed explanation of the GO term. In the interaction data section, users can retrieve GO terms that are related to the queried GO term, along with the type of relationship between them.
+
+* Endpoint: `GET /go-search/<string:go_id>`
+
+* Request Parameters:
+
+  | Parameter | Data Type | Required | Description          |
+  | --------- | --------- | -------- | -------------------- |
+  | `go_id`   | `string`  | Yes      | The GO term to query |
+
+* Example Request URL:
+
+  ```
+  http://127.0.0.1:5000/go-search/GO:0000122
+  ```
+
+* Response Structure:
+
+  | Field        | Type     | Description                                             |
+  | ------------ | -------- | ------------------------------------------------------- |
+  | `basic_info` | `object` | Contains detailed information about the queried GO term |
+  | \|-- `id`    | `string` |                                                         |
+  |              | `string` |                                                         |
+  |              | `string` |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+  |              |          |                                                         |
+
+  
 
 
 
-#### Retrieve protein interaction information and visualization
+#### :old_key: Retrieve protein interaction information and visualization
 
 This API allows users to query interactions for a given protein in a specific species, returning interaction details and an interaction network visualization graph. The interaction details include two interacting proteins, their interaction score, the publications reporting the interaction, and the experimental methods used to discover the interaction.
 

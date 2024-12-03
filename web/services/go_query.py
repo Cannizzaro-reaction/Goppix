@@ -1,7 +1,7 @@
 import sys, os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from models import GoInfo, GoInteraction
+from models import GoBasic, GoInteraction, GoDetail
 
 class InvalidGOIDException(Exception):
     # raised when the GO ID format is invalid.
@@ -25,8 +25,9 @@ def go_term_details(go_id):
     go_id = normalize_go(go_id)
 
     # query GO term information
-    go_info = GoInfo.query.filter_by(id=go_id).first()
-    if not go_info:
+    go_basic_info = GoBasic.query.filter_by(id=go_id).first()
+    go_detail = GoDetail.query.filter_by(id=go_id).first()
+    if not (go_basic_info and go_detail):
         raise GOIDNotFoundException(f"GO term not found: {go_id}")
 
     # query outgoing and incoming interactions
@@ -46,10 +47,10 @@ def go_term_details(go_id):
     # return in json format
     return {
         'basic_info': {
-            'id': go_info.id,
-            'name': go_info.name,
-            'category': go_info.category,
-            'description': go_info.description,
+            'id': go_basic_info.id,
+            'name': go_basic_info.name,
+            'category': go_basic_info.category,
+            'description': go_detail.description,
         },
         'outgoing_interactions': outgoing_data,
         'incoming_interactions': incoming_data

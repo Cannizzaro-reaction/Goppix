@@ -4,9 +4,9 @@ from sqlalchemy.schema import UniqueConstraint
 class GoInteraction(db.Model):
     __tablename__ = 'go_interaction'
     index = db.Column(db.Integer, primary_key=True)
-    go_id = db.Column(db.String(15), db.ForeignKey('go_info.id'), nullable=False)
+    go_id = db.Column(db.String(15), db.ForeignKey('go_basic.id'), nullable=False)
     relationship = db.Column(db.String(50), nullable=False)
-    target_go_id = db.Column(db.String(15), db.ForeignKey('go_info.id'), nullable=False)
+    target_go_id = db.Column(db.String(15), db.ForeignKey('go_basic.id'), nullable=False)
 
     def to_dict(self):
         return {
@@ -21,18 +21,27 @@ class GoInteraction(db.Model):
         UniqueConstraint('go_id', 'relationship', 'target_go_id', name='uix_go_relationship_target'),
     )
 
-class GoInfo(db.Model):
-    __tablename__ = 'go_info'
+class GoBasic(db.Model):
+    __tablename__ = 'go_basic'
     id = db.Column(db.String(15), primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     category = db.Column(db.String(20), nullable=False)
-    description = db.Column(db.Text, nullable=False)
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
             "category": self.category,
+        }
+
+class GoDetail(db.Model):
+    __tablename__ = 'go_detail'
+    id = db.Column(db.String(15), primary_key=True)
+    description = db.Column(db.Text, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
             "description": self.description,
         }
 

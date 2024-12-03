@@ -48,7 +48,7 @@ class GoDetail(db.Model):
 class EcoliProtGO(db.Model):
     __tablename__ = 'Ecoli_protein_go'
     protein_id = db.Column(db.String(10), db.ForeignKey('species_protein.protein_id'), primary_key=True)
-    go = db.Column(db.String(15), primary_key=True)
+    go = db.Column(db.String(15), db.ForeignKey('go_basic.id'), primary_key=True)
 
     def to_dict(self):
         return {
@@ -59,7 +59,7 @@ class EcoliProtGO(db.Model):
 class ScerProtGO(db.Model):
     __tablename__ = 'Scer_protein_go'
     protein_id = db.Column(db.String(10), db.ForeignKey('species_protein.protein_id'), primary_key=True)
-    go = db.Column(db.String(15), primary_key=True)
+    go = db.Column(db.String(15), db.ForeignKey('go_basic.id'), primary_key=True)
 
     def to_dict(self):
         return {

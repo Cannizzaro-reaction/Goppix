@@ -1,6 +1,15 @@
 # Protein-Protein Interaction Network and Functional Annotation Database
 
-写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出写不出啊啊啊啊啊啊啊啊
+> :rocket: **Progress Timeline:**
+>
+> |                                            | **Task Status**    | **Documentation Status** |
+> | ------------------------------------------ | ------------------ | ------------------------ |
+> | **data collection**                        | :white_check_mark: | :x:                      |
+> | **database setup**                         | :white_check_mark: | :white_check_mark:       |
+> | **query API(s) development**               | :white_check_mark: | :white_check_mark:       |
+> | **file download API**                      | :x:                | :x:                      |
+> | **functional annotation tool development** | :x:                | :x:                      |
+> | **environment setup**                      | :x:                | :x:                      |
 
 
 
@@ -138,7 +147,55 @@ These two tables provide download URL for tertiary structure of each correspondi
 
 
 
-### API Design​ :mag_right:
+### Query API Design​ :mag_right:
+
+#### :old_key: Retrieve Basic Protein Information
+
+This API allows users to retrieve information about proteins based on their ID or sequence. The response includes primary, secondary, tertiary structures, and functional annotations.
+
+* Endpoint: `GET /basic-info-search`
+
+* Request Parameters:
+
+  | Parameter     | Data Type | Required | Description                                                  |
+  | ------------- | --------- | -------- | ------------------------------------------------------------ |
+  | `search_type` | `string`  | Yes      | The type of search, choosing from `protein_id` or `sequence` |
+  | `protein`     | `string`  | Yes      | The protein ID or sequence to query                          |
+  | `species`     | `string`  | Yes      | The species of the protein (`E.coli` and `S.cerevisiae` supported) |
+
+* Example Request URL:
+
+  ```
+  http://127.0.0.1:5000/go-search/GO:0000122
+  ```
+
+* Response Structure:
+
+  | Field                 | Type     | Description                                                  |
+  | --------------------- | -------- | ------------------------------------------------------------ |
+  | `protein_id`          | `string` | The ID of the protein                                        |
+  | `species`             | `string` | The species of the protein                                   |
+  | `primary_structure`   | `string` | The primary structure (sequence) of the protein              |
+  | `secondary_structure` | `string` | The secondary structure of the protein                       |
+  | `tertiary_structure`  | `string` | The URL to download the tertiary structure of the protein    |
+  | `go_terms`            | `array`  | A list of Gene Ontology (GO) terms associated with the protein |
+  | \|-- `id`             | `string` | The GO term ID                                               |
+  | \|-- `name`           | `string` | The name of the GO term                                      |
+  | \|-- `category`       | `string` | The category of the GO term                                  |
+
+* Error Code
+
+  | HTTP Status Code | Description                                                  |
+  | ---------------- | ------------------------------------------------------------ |
+  | `404`            | One or more required parameters are missing, or there is something wrong in the format of the parameters |
+  | `400`            | The queried protein does not exist in the database           |
+  | `500`            | Unexpected Error                                             |
+
+* Notes:
+
+  * Case Insensitivity: The letters in protein IDs of E.coli will be automatically normalized to lowercase, while the letters in protein IDs of S.cerevisiae will be automatically normalized to uppercase.
+
+    
 
 #### :old_key: Retrieve GO term description and GO interaction
 
@@ -160,23 +217,33 @@ This API allows users to query specific GO terms and returns information includi
 
 * Response Structure:
 
-  | Field        | Type     | Description                                             |
-  | ------------ | -------- | ------------------------------------------------------- |
-  | `basic_info` | `object` | Contains detailed information about the queried GO term |
-  | \|-- `id`    | `string` |                                                         |
-  |              | `string` |                                                         |
-  |              | `string` |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
-  |              |          |                                                         |
+  | Field                   | Type     | Description                                                  |
+  | ----------------------- | -------- | ------------------------------------------------------------ |
+  | `basic_info`            | `object` | Contains detailed information about the queried GO term      |
+  | \|-- `id`               | `string` | The ID of the GO term                                        |
+  | \|-- `name`             | `string` | The name of the GO term                                      |
+  | \|-- `category`         | `string` | The category of the GO term, including `biological_process`, `molecular_function`, and `cellular_component` |
+  | \|-- `description`      | `string` | A detailed explanation of the GO term                        |
+  | `outgoing_interactions` | `array`  | A list of interactions where the queried GO term relates to other GO terms |
+  | \|-- `go_term`          | `string` | The queried GO term ID                                       |
+  | \|-- `to_go_term`       | `string` | The target GO term ID that the queried term relates to       |
+  | \|-- `interaction_type` | `string` | The type of relationship                                     |
+  | `incoming_interactions` | `array`  | A list of interactions where other GO terms relate to the queried GO term |
+  | \|-- `go_term`          | `string` | The queried GO term ID                                       |
+  | \|-- `from_go_term`     | `string` | The source GO term ID that points to the queried term        |
+  | \|-- `interaction_type` | `string` | The type of relationship                                     |
 
-  
+* Error Code
+
+  | HTTP Status Code | Description                                                |
+  | ---------------- | ---------------------------------------------------------- |
+  | `400`            | The provided GO term ID does not follow the correct format |
+  | `404`            | The queried GO term does not exist in the database         |
+  | `500`            | Unexpected Error                                           |
+
+* Notes:
+
+  * The GO term can be accepted regardless of case sensitivity or the absence of a colon. The `normalize_go` function ensures that the input is standardized to the format `GO:XXXXXXX`.
 
 
 

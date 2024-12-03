@@ -1,21 +1,27 @@
 from flask import request
 from flask_restful import Resource
-from services.protein_basic_query import query_structure_go, ProteinNotFoundException, TableNotFoundException
+from services.protein_basic_query import query_structure_go, ProteinNotFoundException, TableNotFoundException, query_by_sequence
 
 class BasicInfoResource(Resource):
     def get(self):
         # Get query parameters
-        protein_id = request.args.get('protein')
+        search_type = request.args.get("search_type") # `protein_id` or `sequence`
+        protein = request.args.get('protein')
         species = request.args.get('species')
 
-        if not protein_id or not species:  # missing parameter
+        if not protein or not species:  # missing parameter
             return {"error": "Please provide both 'protein' and 'species' parameters."}, 400
-
+        
         try:
-            response = query_structure_go(protein_id, species)
+            if search_type == "protein_id":
+                response = query_structure_go(protein, species)
+            elif search_type == "sequence":
+                response = query_by_sequence(protein, species)
+            else: # wrong `search_type` parameters
+                return {"error": "Invalid 'search_type'. Must be 'protein_id' or 'sequence'."}, 400
 
             return {
-                "protein_id": protein_id,
+                "protein_id": response["id"],
                 "species": species,
                 "primary_structure": response["primary"],
                 "secondary_structure": response["secondary"],

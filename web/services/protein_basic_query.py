@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from sqlalchemy.orm.exc import NoResultFound
-from models import db, EcoliPS, EcoliSS, EcoliTS, ScerPS, ScerSS, ScerTS, EcoliProtGO, ScerProtGO, SpeciesProtein, GoInfo
+from models import db, EcoliPS, EcoliSS, EcoliTS, ScerPS, ScerSS, ScerTS, EcoliProtGO, ScerProtGO, SpeciesProtein, GoBasic
 
 class TableNotFoundException(Exception):
     # Raised when the interaction table for the given species is not found (wrong species name)
@@ -33,6 +33,7 @@ def validate_protein_species(protein, species):
         raise ProteinNotFoundException(f"Protein '{protein}' not found in species '{species}'.")
     
 def get_info_tables(species):
+    # mapping tables to different species
     species_table_map = {
         "E.coli": {
             "primary": EcoliPS,
@@ -53,6 +54,29 @@ def get_info_tables(species):
     
     return species_table_map[species]
 
+def query_by_sequence(sequence, species):
+    """
+    Get protein information by sequence searching.
+    The sequence will be used to get protein_id and merge into id searching.
+    """
+    # map species to the corresponding primary structure table
+    species_table_map = {
+        "E.coli": EcoliPS,
+        "S.cerevisiae": ScerPS,
+    }
+
+    if species not in species_table_map:
+        raise TableNotFoundException(f"Species '{species}' not supported.")
+    
+    primary_structure_table = species_table_map[species]
+    record = primary_structure_table.query.filter_by(seq=sequence.strip()).first()
+    
+    if not record:
+        raise ProteinNotFoundException(f"No protein found for the given sequence in '{species}'.")
+
+    protein_id = record.protein_id
+    return query_structure_go(protein_id, species)
+
 def query_structure_go(protein_id, species):
     # Get the appropriate table classes for the species
     info_tables = get_info_tables(species)
@@ -60,6 +84,7 @@ def query_structure_go(protein_id, species):
     validate_protein_species(protein_id, species)
     
     results = {
+        "id": protein_id,
         "primary": "unknown",
         "secondary": "unknown",
         "tertiary": "unknown",
@@ -74,10 +99,9 @@ def query_structure_go(protein_id, species):
                 go_terms = table_class.query.filter_by(protein_id=protein_id).all()
                 go_info_list = []
                 for go_term in go_terms:
-                    go_detail = GoInfo.query.filter_by(id=go_term.go).first()
+                    go_detail = GoBasic.query.filter_by(id=go_term.go).first()
                     if go_detail:
                         go_info = go_detail.to_dict()
-                        del go_info["description"] # do not return detailed description
                         go_info_list.append(go_info)
                     else:
                         go_info_list.append({"id": go_term.go, "name": "unknown", "category": "unknown"})

@@ -9,6 +9,8 @@ from services.go_query import go_term_details
 
 from resources.go_resource import GOQuery
 from resources.interaction_resource import InteractionResource
+from resources.basic_info_resource import BasicInfoResource
+from resources.download_resource import FileDownloadAPI
 
 load_dotenv()
 
@@ -28,6 +30,8 @@ api = Api(app)
 # register resources to API
 api.add_resource(GOQuery, '/go-search/<string:go_id>')
 api.add_resource(InteractionResource, '/interaction-search')
+api.add_resource(BasicInfoResource, '/basic-info-search')
+api.add_resource(FileDownloadAPI, '/download')
 
 if __name__ == '__main__':
     app.run(debug=True)

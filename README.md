@@ -10,7 +10,7 @@ With 16 meticulously designed tables conforming to the BCNF standard, the databa
 
 The database also features a suite of APIs for retrieving and visualizing interaction networks, enabling researchers to perform targeted queries and gain insights into protein functionality and interaction mechanisms. This resource is an essential tool for researchers in the fields of bioinformatics, molecular biology, and systems biology, offering robust data and functionality to support advanced analysis.
 
-GOPPIX is a name given by ChapGPT. GO represents the Gene Ontology annotations included in our database, while PPI highlights our database's focus on protein-protein interaction data within organisms. "X" signifies the unknown, which users can explore through our database to gain deeper insights into protein functional networks and uncover the unknown.
+GOPPIX is a name given by ChatGPT. GO represents the Gene Ontology annotations included in our database, while PPI highlights our database's focus on protein-protein interaction data within organisms. "X" signifies the unknown, which users can explore through our database to gain deeper insights into protein functional networks and uncover the unknown.
 
 
 

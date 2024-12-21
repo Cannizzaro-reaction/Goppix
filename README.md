@@ -1,16 +1,5 @@
 # Protein-Protein Interaction Network and Functional Annotation Database
 
-> :rocket: **Progress Timeline:**
->
-> |                                            | **Task Status**    | **Documentation Status** |
-> | ------------------------------------------ | ------------------ | ------------------------ |
-> | **data collection**                        | :white_check_mark: | :white_check_mark:       |
-> | **database setup**                         | :white_check_mark: | :white_check_mark:       |
-> | **query API(s) development**               | :white_check_mark: | :white_check_mark:       |
-> | **file download API**                      | :white_check_mark: | :white_check_mark:       |
-> | **functional annotation tool development** | :x:                | :x:                      |
-> | **environment setup**                      | :x:                | :x:                      |
-
 
 
 ## Introduction
@@ -57,7 +46,51 @@ GOPPIX is a name given by ChapGPT. GO represents the Gene Ontology annotations i
   mysql -u <DB_USER> -p -e "CREATE DATABASE goppix;"
   ```
 
+  Import data:
+
+  ```
+  python setup.py
+  ```
+
+  After setup, test in your MySQL, and your database will look something like this:
+
+  ```mysql
+  mysql> USE goppix;
+  Reading table information for completion of table and column names
+  You can turn off this feature to get a quicker startup with -A
   
+  Database changed
+  mysql> SHOW TABLES;
+  +---------------------------+
+  | Tables_in_goppix          |
+  +---------------------------+
+  | Ecoli_interaction_score   |
+  | Ecoli_primary_structure   |
+  | Ecoli_protein_go          |
+  | Ecoli_secondary_structure |
+  | Ecoli_tertiary_structure  |
+  | Ecoli_validation          |
+  | Scer_interaction_score    |
+  | Scer_primary_structure    |
+  | Scer_protein_go           |
+  | Scer_secondary_structure  |
+  | Scer_tertiary_structure   |
+  | Scer_validation           |
+  | go_basic                  |
+  | go_detail                 |
+  | go_interaction            |
+  | species_protein           |
+  +---------------------------+
+  16 rows in set (0.01 sec)
+  ```
+
+  An alternative way to import data is by running all the `run` functions in the `scripts` directory. Before that, remember to run `app.py` to create all tables.
+
+* After that, you can start this application with:
+
+  ```bash
+  python app.py
+  ```
 
 
 

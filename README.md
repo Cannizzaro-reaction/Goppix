@@ -27,7 +27,37 @@ GOPPIX is a name given by ChapGPT. GO represents the Gene Ontology annotations i
 
 ## Installation
 
-pass
+* Create environment:
+
+  Go to the directory of environment file:
+
+  ```bash
+  cd environment
+  ```
+
+  Create environment using Anaconda:
+
+  ```bash
+  conda env create -f environment_backend1.yml
+  ```
+
+  Activate the environment:
+
+  ```bash
+  conda activate goppix
+  ```
+
+* Database setup:
+
+  Go to *web* directory. Edit the `.env` file to include your database credentials.
+
+  Create the database:
+
+  ```bash
+  mysql -u <DB_USER> -p -e "CREATE DATABASE goppix;"
+  ```
+
+  
 
 
 

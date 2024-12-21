@@ -15,7 +15,13 @@
 
 ## Introduction
 
-pass
+**GOPPIX Database** is a comprehensive resource designed to facilitate the exploration and analysis of protein interactions and functional annotations. This database integrates data from multiple reliable sources, such as BioGRID, STRING, PDB, AlphaFold, SWISS-MODEL, MyGene.info, and the Gene Ontology database. The dataset encompasses detailed information about protein interactions, experimental validation, protein structures (primary, secondary, and tertiary), and functional annotations using Gene Ontology (GO) terms.
+
+With 16 meticulously designed tables conforming to the BCNF standard, the database supports a range of queries. Users can retrieve detailed protein information (such as sequences, structures, and GO annotations), explore GO term descriptions and interactions, analyze protein-protein interaction scores, and even download comprehensive datasets for specific species. Supported organisms include *Escherichia coli* and *Saccharomyces cerevisiae*.
+
+The database also features a suite of APIs for retrieving and visualizing interaction networks, enabling researchers to perform targeted queries and gain insights into protein functionality and interaction mechanisms. This resource is an essential tool for researchers in the fields of bioinformatics, molecular biology, and systems biology, offering robust data and functionality to support advanced analysis.
+
+GOPPIX is a name given by ChapGPT. GO represents the Gene Ontology annotations included in our database, while PPI highlights our database's focus on protein-protein interaction data within organisms. "X" signifies the unknown, which users can explore through our database to gain deeper insights into protein functional networks and uncover the unknown.
 
 
 

@@ -30,10 +30,10 @@ def import_prot_info(filepath, model, row_name, att_name, length):
             print("Successful import")
 
 
-
-import_prot_info(r'../data/Ecoli_ps.csv', EcoliPS, 'seq', 'seq', 2400)
-import_prot_info(r'../data/Ecoli_ss.csv', EcoliSS, 'secondary_structure', 'ss', 2400)
-import_prot_info(r'../data/Ecoli_ts.csv', EcoliTS, 'tertiary_structure', 'ts', 65)
-import_prot_info(r'../data/Scer_ps.csv', ScerPS, 'seq', 'seq', 5000)
-import_prot_info(r'../data/Scer_ss.csv', ScerSS, 'secondary_structure', 'ss', 2700)
-import_prot_info(r'../data/Scer_ts.csv', ScerTS, 'tertiary_structure', 'ts', 75)
+def run():
+    import_prot_info(r'../data/Ecoli_ps.csv', EcoliPS, 'seq', 'seq', 2400)
+    import_prot_info(r'../data/Ecoli_ss.csv', EcoliSS, 'secondary_structure', 'ss', 2400)
+    import_prot_info(r'../data/Ecoli_ts.csv', EcoliTS, 'tertiary_structure', 'ts', 65)
+    import_prot_info(r'../data/Scer_ps.csv', ScerPS, 'seq', 'seq', 5000)
+    import_prot_info(r'../data/Scer_ss.csv', ScerSS, 'secondary_structure', 'ss', 2700)
+    import_prot_info(r'../data/Scer_ts.csv', ScerTS, 'tertiary_structure', 'ts', 75)

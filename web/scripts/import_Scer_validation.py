@@ -31,4 +31,5 @@ def import_ecoli_validation(filepath):
             db.session.commit()
             print("ScerValidation data imported successfully!")
 
-import_ecoli_validation(r'../data/Scer_validation.csv')
+def run():
+    import_ecoli_validation(r'../data/Scer_validation.csv')

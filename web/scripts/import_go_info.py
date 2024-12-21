@@ -41,5 +41,6 @@ def import_go_detail(filepath):
             db.session.commit()
             print("GoInfo data imported successfully!")
 
-import_go_basic(r'../data/go_basic.csv')
-import_go_detail(r'../data/go_detail.csv')
+def run():
+    import_go_basic(r'../data/go_basic.csv')
+    import_go_detail(r'../data/go_detail.csv')

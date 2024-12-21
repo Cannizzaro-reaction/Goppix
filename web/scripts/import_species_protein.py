@@ -24,5 +24,6 @@ def import_species_protein(filepath):
             db.session.commit()
             print("Species-Protein data imported successfully!")
 
-csv_file_path = r'../data/species_protein.csv'
-import_species_protein(csv_file_path)
+def run():
+    csv_file_path = r'../data/species_protein.csv'
+    import_species_protein(csv_file_path)

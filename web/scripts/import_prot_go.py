@@ -31,5 +31,6 @@ def import_prot_info(filepath, model):
                 db.session.rollback()
                 print(f"Error occurred during import: {e}")
 
-import_prot_info(r'../data/Ecoli_protein_go.csv', EcoliProtGO)
-import_prot_info(r'../data/Scer_protein_go.csv', ScerProtGO)
+def run():
+    import_prot_info(r'../data/Ecoli_protein_go.csv', EcoliProtGO)
+    import_prot_info(r'../data/Scer_protein_go.csv', ScerProtGO)

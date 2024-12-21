@@ -29,4 +29,5 @@ def import_interaction_scores(filepath):
             db.session.commit()
             print("Interaction scores imported successfully!")
 
-import_interaction_scores(r'../data/Ecoli_interaction_score.csv')
+def run():
+    import_interaction_scores(r'../data/Ecoli_interaction_score.csv')

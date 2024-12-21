@@ -25,4 +25,5 @@ def import_go_interaction(filepath):
             db.session.commit()
             print("GoInteraction data imported successfully!")
 
-import_go_interaction(r'../data/go_interaction.csv')
+def run():
+    import_go_interaction(r'../data/go_interaction.csv')

@@ -269,7 +269,11 @@ This API allows users to retrieve information about proteins based on their ID o
 * Example Request URL:
 
   ```
-  http://127.0.0.1:5000/go-search/GO:0000122
+  http://127.0.0.1:5000/basic-info-search?search_type=protein_id&protein=b0022&species=E.coli
+  ```
+
+  ```
+  http://127.0.0.1:5000/basic-info-search?search_type=sequence&protein=MKSNRQARHILGLDHKISNQRKIVTEGDKSSVVNNPTGRKRPAEK&species=E.coli
   ```
 
 * Response Structure:

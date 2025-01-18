@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Database</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <span class="logo">Goppix</span>
+            </div>
+            <ul>
+                <li><a href="index.html" class="nav-item">Home</a></li>
+                <li><a href="BasicInfoSearch.html" class="nav-item">Protein Info Search</a></li>
+                <li><a href="GOsearch.html" class="nav-item">GO Term</a></li>
+                <li><a href="InterActionSearch.html" class="nav-item">Interaction Search</a></li>
+                <li><a href="DownLoad.html" class="nav-item">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- 页面标题 -->
+    <div class="container">
+        <h1>Welcome to Goppix</h1>
+        <p>This is the main page. Please start exploring from above.</p>
+    </div>
+
+    <!-- 数据库介绍与使用说明 -->
+    <div class="database-info">
+        <h3>About the Protein Database</h3>
+        <p>
+            <li><strong>GOPPIX Database</strong> GOPPIX is a comprehensive database designed to explore and analyze
+                protein interactions and functional annotations. It integrates data from trusted sources like BioGRID,
+                STRING, PDB, AlphaFold, SWISS-MODEL, MyGene.info, and Gene Ontology. The database offers detailed
+                information on protein interactions, structures, and Gene Ontology annotations. With 16 BCNF-standard
+                tables, users can query protein sequences, structures, and interaction scores for organisms like E.
+                coli and S. cerevisiae.
+
+                APIs are designed to retrieve protein sequence and structure information, interaction data, filter and
+                visualize PPI networks, explore GO term information, and analyze interactions between GO terms, etc.
+
+                "GO" refers to the Gene Ontology terms included in the database, "PPI" highlights the focus on protein
+                interactions, and "X" represents the unknown, which users can explore to gain deeper insights into
+                protein functional networks.</li>
+        </p>
+
+        <h3>How to Use the Database</h3>
+        <ul>
+            <li><strong>Protein Info Search</strong>: Use this search tool to find detailed information about proteins,
+                including their biological functions, molecular weights, and sequences.</li>
+            <li><strong>GO Term Search</strong>: Explore Gene Ontology (GO) terms related to proteins to gain insights
+                into
+                their molecular functions and biological processes.</li>
+            <li><strong>Interaction Search</strong>: Find protein-protein interactions and gain a better understanding
+                of
+                how proteins function in cellular networks.</li>
+            <li><strong>Download</strong>: Download protein data about S.cerevisiae and E.coli</li>
+        </ul>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Data</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <span class="logo">Goppix</span>
+            </div>
+            <ul>
+                <li><a href="index.html" class="nav-item">Home</a></li>
+                <li><a href="BasicInfoSearch.html" class="nav-item">Protein Info Search</a></li>
+                <li><a href="GOsearch.html" class="nav-item">GO Term</a></li>
+                <li><a href="InterActionSearch.html" class="nav-item">Interaction Search</a></li>
+                <li><a href="DownLoad.html" class="nav-item">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 页面标题 -->
+    <div class="container">
+        <h1>Download Data</h1>
+        <p>Select a species to download the corresponding data file:</p>
+    </div>
+
+    <!-- 按钮容器 -->
+    <div class="button-container">
+        <a href="http://127.0.0.1:5000/download?species=S.cerevisiae">
+            <button>Download S. cerevisiae Data</button>
+        </a>
+        <a href="http://127.0.0.1:5000/download?species=E.coli">
+            <button>Download E. coli Data</button>
+        </a>
+    </div>
+
+    <!-- 数据库介绍与使用说明 -->
+    <div class="database-info">
+        <h3>About the Downloadable Data</h3>
+        <p>
+            You can download protein-related data for the following species. These datasets include protein sequences, 
+            molecular interactions, gene ontology terms, and more, which can assist in further research and analysis.
+        </p>
+        
+        <h3>Available Species</h3>
+        <ul>
+            <li><strong>S. cerevisiae</strong>: A model organism widely used in genetic and molecular biology studies.</li>
+            <li><strong>E. coli</strong>: A bacteria commonly used in molecular cloning and protein expression studies.</li>
+        </ul>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

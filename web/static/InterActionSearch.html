@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Interaction Search</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <span class="logo">Goppix</span>
+            </div>
+            <ul>
+                <li><a href="index.html" class="nav-item">Home</a></li>
+                <li><a href="BasicInfoSearch.html" class="nav-item">Protein Info Search</a></li>
+                <li><a href="GOsearch.html" class="nav-item">GO Term</a></li>
+                <li><a href="InterActionSearch.html" class="nav-item">Interaction Search</a></li>
+                <li><a href="DownLoad.html" class="nav-item">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Protein Interaction Search</h1>
+    
+    <div class="search-container">
+        <label for="protein-id">Enter Protein ID:</label>
+        <input type="text" id="protein-id" placeholder="Enter Protein ID">
+        
+        <label for="species">Select Species:</label>
+        <select id="species">
+            <option value="E.coli">E. coli</option>
+            <option value="S.cerevisiae">S. cerevisiae</option>
+        </select>
+        
+        <label for="min-score">Enter Minimum Interaction Score:</label>
+        <input type="number" id="min-score" placeholder="Min score" value="0">
+        
+        <button onclick="searchInteraction()">Search</button>
+    </div>
+
+    <!-- 显示检索结果 -->
+    <div id="interaction-info" class="interaction-info"></div>
+    
+    <div id="interaction-network"></div>
+
+    <h3>Search Function Introduction</h3>
+    <p>Here you can search for interactions for a given protein in a  specific species, getting interaction details and an interaction  network visualization graph.</p>
+    <p>The interaction details include two  interacting proteins, their interaction score, the publications  reporting the interaction, and the experimental methods used to discover the interaction. </p>
+    <p>The protein ID and species should be given, as well as the filter score which represents the lowest interaction score you want to get on this page. </p>   
+    <p>As an alternative parameter, the filter score has a default value of 0, where all of the interaction proteins will be shown.</p>  
+     
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

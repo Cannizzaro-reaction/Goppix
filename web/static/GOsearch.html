@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GO Term Information Search</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <span class="logo">Goppix</span>
+            </div>
+            <ul>
+                <li><a href="index.html" class="nav-item">Home</a></li>
+                <li><a href="BasicInfoSearch.html" class="nav-item">Protein Info Search</a></li>
+                <li><a href="GOsearch.html" class="nav-item">GO Term</a></li>
+                <li><a href="InterActionSearch.html" class="nav-item">Interaction Search</a></li>
+                <li><a href="DownLoad.html" class="nav-item">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <h1>GO Term Information Search</h1>
+
+    <div class="search-container">
+        <label for="go-term">Enter GO Term (e.g., GO:0000122):</label>
+        <input type="text" id="go-term" placeholder="Enter GO Term">
+        <button onclick="searchGO()">Search</button>
+    </div>
+
+    <!-- 显示检索结果 -->
+    <div id="go-info" class="go-info"></div>
+
+    <h3>Search Function Introduction</h3>
+    <p>Here you can search for specific GO terms and get information including detailed GO term data and interaction data. </p>
+    <p>In the detailed  information section, the name, category, and a detailed explanation of the GO term can be obtained. </p>   
+    <p>In the interaction data section, you can  retrieve GO terms that are related to the queried GO term, along with  the type of relationship between them.</p>  
+     
+    
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+/* 设置通用的页面边距和字体 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 保证内容不被拉得太低 */
+    align-items: center;
+    min-height: 100vh; /* 页面最小高度填满屏幕 */
+}
+
+/* 导引栏 */
+header {
+    background-color: #2c3e50;
+    padding: 20px;
+    width: 100%; /* 确保导航栏宽度为100% */
+    position: sticky; /* 确保导航栏固定在顶部 */
+    top: 0;
+    text-align: center;
+}
+
+/* 导引栏 */
+header {
+    background-color: #2c3e50;
+    padding: 20px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between; /* 使 logo 和导航项分开 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* 数据库名称样式 */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 32px; /* 设置较大的字号 */
+    color: #ecf0f1;
+    font-weight: bold;
+    margin-left: 20px; /* 距离左边有间距 */
+}
+
+/* 导引栏 */
+header {
+    background-color: #2c3e50;
+    padding: 20px;
+    text-align: center;
+}
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* 使用flexbox布局 */
+    justify-content: space-between; /* 保证logo和导航项有间隔 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* 新增 logo 样式 */
+.logo-container {
+    margin-left: 20px; /* 设置左侧的间距 */
+}
+
+.logo {
+    font-size: 32px; /* 设置较大的字号 */
+    color: #ecf0f1;
+    font-weight: bold;
+}
+
+/* 导航项 */
+.navbar ul {
+    display: flex; /* 使用 flex 布局使导航项在水平方向排列 */
+    margin: 0; /* 取消默认的外边距 */
+}
+
+.navbar li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.navbar a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #3498db;
+}
+
+
+
+/* 页面容器 */
+.container {
+    text-align: center;
+    padding: 30px 0;
+    width: 100%;
+}
+
+/* 页面标题 */
+h1 {
+    font-size: 36px;
+    color: #2c3e50;
+}
+
+/* 页面描述 */
+p {
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+/* 搜索类型选择框样式 */
+.search-container select {
+    padding: 15px; /* 增加内边距，扩大选择框 */
+    margin-bottom: 15px; /* 增加选择框和其他元素之间的间距 */
+    width: 80%;
+    max-width: 400px; /* 设置最大宽度 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* 增加字体大小 */
+}
+
+/* 搜索框标签样式 */
+.search-container label {
+    font-size: 18px; /* 增加标签字体大小 */
+    margin-bottom: 10px; /* 增加标签与选择框之间的间距 */
+}
+
+/* 搜索框容器 */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* 搜索框输入框和按钮的样式 */
+.search-container input {
+    padding: 15px; /* 增加内边距，扩大输入框 */
+    margin-bottom: 15px; /* 增加间距 */
+    width: 100%;
+    max-width: 400px; /* 增大最大宽度 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px; /* 增加字体大小 */
+}
+
+.search-container button {
+    padding: 15px 30px; /* 增加内边距，增大按钮 */
+    width: 100%;
+    max-width: 400px; /* 增大最大宽度 */
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px; /* 增加字体大小 */
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #2980b9; /* 增加按钮悬停时的颜色变化 */
+}
+
+/* 按钮容器 */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* 增大按钮间距 */
+    margin-top: 30px; /* 增大顶部间距 */
+    width: 100%;
+}
+
+/* 按钮样式 */
+.button-container a button {
+    padding: 15px 40px; /* 增大按钮内边距 */
+    font-size: 20px; /* 增大字体大小 */
+    color: #fff; /* 按钮文字颜色 */
+    background-color: #3498db; /* 按钮背景色 */
+    border: none;
+    border-radius: 8px; /* 增加按钮圆角 */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 按钮悬停效果 */
+.button-container a button:hover {
+    background-color: #2980b9; /* 鼠标悬停时改变按钮背景色 */
+}
+
+
+
+/* 数据库介绍部分 */
+.database-info {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    line-height: 1.8;
+    font-family: 'Arial', sans-serif;
+    color: #333333;
+    text-align: center; /* 数据库介绍部分居中 */
+}
+
+/* 标题样式 */
+.database-info h3 {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* 段落样式 */
+.database-info p, 
+.database-info li p {
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 20px;
+    text-align: justify;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* 列表样式 */
+.database-info ul {
+    font-size: 16px;
+    color: #333333;
+    margin-left: 40px;
+    list-style-type: disc;
+    text-align: left; /* 保持列表项左对齐 */
+}
+
+/* 列表项样式 */
+.database-info ul li {
+    margin-bottom: 15px;
+}
+
+/* 强调列表项的内容 */
+.database-info li strong {
+    font-weight: bold;
+}
+
+/* 页面响应式布局 */
+@media (max-width: 768px) {
+    .navbar li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .button-container a button {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+/* 设置表格样式 */
+table {
+    width: 80%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    text-align: left;
+    border: 2px solid #333;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 特别针对第一列的样式 */
+table td:first-child, table th:first-child {
+    font-family: 'Arial', sans-serif;
+    white-space: nowrap;
+}
+
+/* 让 code 标签的字体更加统一 */
+code {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* 蛋白质信息表格样式 */
+.protein-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.protein-info th, .protein-info td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.protein-info th {
+    background-color: #f4f4f4;
+    width: 200px;
+}
+
+.protein-info td {
+    background-color: #fafafa;
+}
+
+/* GO Term 信息表格样式 */
+.go-terms table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.go-terms th, .go-terms td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.go-terms th {
+    background-color: #f4f4f4;
+}
+
+.go-terms td {
+    background-color: #fafafa;
+}
+
+.go-terms tr:hover {
+    background-color: #f1f1f1;
+}
+
+.go-terms td a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.go-terms td a:hover {
+    text-decoration: underline;
+}

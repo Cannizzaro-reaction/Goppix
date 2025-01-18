@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Information Search</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* 设置表格样式 */
+        table {
+            width: 80%;
+            /* 设置表格宽度 */
+            margin: 30px auto;
+            /* 居中显示表格 */
+            border-collapse: collapse;
+            /* 合并表格边框 */
+            text-align: left;
+            /* 左对齐文字 */
+            border: 2px solid #333;
+            /* 设置表格边框 */
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            /* 设置单元格内边距 */
+            border: 1px solid #ddd;
+            /* 设置单元格的边框 */
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            /* 设置表头背景色 */
+            font-weight: bold;
+            /* 加粗表头文字 */
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+            /* 设置偶数行的背景色 */
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+            /* 设置鼠标悬停时的背景色 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <span class="logo">Goppix</span>
+            </div>
+            <ul>
+                <li><a href="index.html" class="nav-item">Home</a></li>
+                <li><a href="BasicInfoSearch.html" class="nav-item">Protein Info Search</a></li>
+                <li><a href="GOsearch.html" class="nav-item">GO Term</a></li>
+                <li><a href="InterActionSearch.html" class="nav-item">Interaction Search</a></li>
+                <li><a href="DownLoad.html" class="nav-item">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <!-- 页面标题 -->
+    <div class="container">
+        <h1>Protein Information Search</h1>
+        <p>Use this search tool to find detailed information about proteins, including biological functions, molecular
+            structures, and Gene Ontology terms.</p>
+
+        <!-- 搜索框 -->
+        <div class="search-container">
+            <label for="search-type">Search By:</label>
+            <select id="search-type">
+                <option value="protein_id">Protein ID</option>
+                <option value="sequence">Protein Sequence</option>
+            </select>
+        </div>
+
+        <label for="species">Select Species:</label>
+        <select id="species" style="font-size: 16px; padding: 8px 12px; width: 200px;">
+            <option value="E.coli">E. coli</option>
+            <option value="S.cerevisiae">S. cerevisiae</option>
+        </select>
+
+        <div class="search-container">
+            <label for="search-input">Enter Protein ID or Sequence:</label>
+            <input type="text" id="search-input" placeholder="Enter Protein ID or Sequence">
+            <button onclick="searchProtein()">Search</button>
+        </div>
+
+        <!-- 显示检索结果 -->
+        <div id="protein-info" class="protein-info"></div>
+
+        <!-- 返回结果表格介绍 -->
+        <h3>Search Function Introduction</h3>
+        <p>Here you can search for protein information by entering the protein ID or sequence. </p>
+        <p>The results will include details on the primary, secondary, and tertiary structures, as well as functional
+            annotations.</p>
+        <p>This search supports proteins from Escherichia coli and Saccharomyces cerevisiae.</p>
+
+
+
+        <script src="assets/js/script.js"></script>

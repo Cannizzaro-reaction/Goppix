@@ -3,6 +3,8 @@ import sys
 from importlib import import_module
 from flask import Flask
 from dotenv import load_dotenv
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from models import db
 
 load_dotenv()
@@ -17,7 +19,7 @@ with app.app_context():
     db.create_all()
 
 def run_scripts():
-    scripts_dir = os.path.join(os.path.dirname(__file__), 'scripts')
+    scripts_dir = os.path.abspath(os.path.dirname(__file__))
     if not os.path.exists(scripts_dir):
         print("The scripts directory does not exist.")
         return

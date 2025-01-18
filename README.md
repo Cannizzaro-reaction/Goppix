@@ -36,6 +36,13 @@ GOPPIX is a name given by ChatGPT. GO represents the Gene Ontology annotations i
   conda activate goppix
   ```
 
+  If there's anything wrong in environment, you can choose to set up manually:
+
+  ```
+  conda create -n goppix python=3.8
+  pip install pandas flask flask-sqlalchemy flask-restful python-dotenv graphviz
+  ```
+
 * Database setup:
 
   Go to *web* directory. Edit the `.env` file to include your database credentials.
@@ -49,6 +56,7 @@ GOPPIX is a name given by ChatGPT. GO represents the Gene Ontology annotations i
   Import data:
 
   ```
+  cd scripts
   python setup.py
   ```
 

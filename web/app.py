@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource
 from dotenv import load_dotenv
@@ -32,6 +32,14 @@ api.add_resource(GOQuery, '/go-search/<string:go_id>')
 api.add_resource(InteractionResource, '/interaction-search')
 api.add_resource(BasicInfoResource, '/basic-info-search')
 api.add_resource(FileDownloadAPI, '/download')
+
+@app.route('/')
+def index():
+    return send_from_directory('static', 'index.html')
+
+@app.route('/<path:filename>')
+def serve_static_file(filename):
+    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

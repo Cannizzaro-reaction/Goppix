@@ -44,7 +44,7 @@ GOPPIX is a name given by ChatGPT. GO represents the Gene Ontology annotations i
   Create environment using Anaconda:
 
   ```bash
-  conda env create -f environment_backend1.yml
+  conda env create -f environment.yml
   ```
 
   If there's anything wrong in environment, you can choose to set up manually:
@@ -62,7 +62,21 @@ GOPPIX is a name given by ChatGPT. GO represents the Gene Ontology annotations i
 
 * Database setup:
 
-  Go to *web* directory. Edit the `.env` file to include your database credentials.
+  Go to *web* directory. Edit the `.env` file to include your database credentials. If there's no `.env` file, you may have to manually create one with the following format:
+
+  ```
+  MYSQL_USER_NAME=your_database_user
+  MYSQL_USER_PASSWORD=your_database_password
+  MYSQL_HOSTNAME=your_database_host
+  MYSQL_PORT=your_database_port
+  MYSQL_DATABASE_NAME=goppix
+  SECRET_KEY=your_secret_key
+  JWT_SECRET_KEY=your_jwt_secret
+  FLASK_CONFIG=development
+  SQLALCHEMY_DATABASE_URI=mysql+pymysql://<your_database_user>:<your_database_password>@<your_database_host>:<your_database_port>/goppix
+  ```
+
+  Change `<>` according to your database configuration.
 
   Create the database:
 
